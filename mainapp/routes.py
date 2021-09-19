@@ -1,5 +1,6 @@
 from flask import jsonify, request, render_template, url_for, redirect
 from mainapp import *
+from mainapp.utilities import * 
 import time
 
 @app.route('/', methods=['GET'])
@@ -26,7 +27,7 @@ async def devicePing():
         con.commit()
     
     tmpDic = {"level" : level, "location" : location , "timestamp" : int(time.time())}
-    insertLocation(tmpDic, cur, staff_id)
+    insertLocation(con, tmpDic, staff_id)
     if staff_id in deviceDic.keys():
         deviceDic[staff_id].append(tmpDic)
         return "Device updated."
