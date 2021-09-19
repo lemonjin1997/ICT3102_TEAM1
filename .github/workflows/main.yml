@@ -1,0 +1,40 @@
+name: CI-CD-Pipeline-to-AWS-ElasticBeanstalk
+env:
+  EB_PACKAGE_S3_BUCKET_NAME : "ict3102-flask-app"
+  EB_APPLICATION_NAME       : "ict3102-flask-app"
+  EB_ENVIRONMENT_NAME       : "Ict3102flaskapp-env"
+  DEPLOY_PACKAGE_NAME       : "flask-app-${{ github.sha }}.zip"
+  AWS_REGION_NAME           : "ap-southeast-1"
+
+on:
+  push:
+    branches: main 
+
+jobs:
+  ci_pipeline:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Git clone repository
+        uses: actions/checkout@v1
+        
+      - name: Create ZIP deployment package
+        run : zip -r ${{ env.DEPLOY_PACKAGE_NAME }} ./ -x *.git*
+      
+      # TODO: change to encrypted secret key (needs to be done by repo owner)
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with: 
+          aws-access-key-id     : AKIAZGGX5QHFUVLV2VMR
+          aws-secret-access-key : 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
+          aws-region            : ${{ env.AWS_REGION_NAME }}
+          
+      - name: Copy deployment package to S3 bucket
+        run : aws s3 cp ${{ env.DEPLOY_PACKAGE_NAME }} s3://${{ env.EB_PACKAGE_S3_BUCKET_NAME }}/
+      
+      - name: Print message on CI pipeline completion
+      - run : echo "CI pipeline completed successfully"
+          
+      
+
+  
