@@ -1,9 +1,0 @@
-In order to get the location of the android mobile phone,
-the calculation and determining the location of the mobile phone can done on flask server or mobile phone.
-I will suggest it to be on the flask server. (it will not be in the current version)
-Reasons for that suggest, increase flexibility for moving beacons and security reasons...
-but if you want it to be simple just have phone do the it.
-The mobile phone will just be sending location or the beacons that is can detect in a list with signal strength or distance.
-
-The requirement is a bit weird. Why will you want to maintain a list of a location. 
-If that is for audit, it is ok. but sending it over to another server?
