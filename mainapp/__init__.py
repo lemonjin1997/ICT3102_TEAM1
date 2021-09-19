@@ -22,8 +22,8 @@ def startup():
     """)
     return con
 
-app = Flask(__name__)
-app.config["DEBUG"] = True
+application = Flask(__name__)
+application.config["DEBUG"] = True
 
 con = startup()
 

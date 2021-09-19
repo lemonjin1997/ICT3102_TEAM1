@@ -3,17 +3,17 @@ from mainapp import *
 from mainapp.utilities import * 
 import time
 
-@app.route('/', methods=['GET'])
-@app.route('/home/', methods=['GET'])
+@application.route('/', methods=['GET'])
+@application.route('/home/', methods=['GET'])
 async def home():
     introStr = "This flask server for ICT3102: " + "\n" + "/add device : to add device"
     return introStr
 
-@app.route('/list_device', methods=['GET'])
+@application.route('/list_device', methods=['GET'])
 async def listDevice():
     return jsonify(deviceDic)
 
-@app.route('/device_ping', methods=['POST'])
+@application.route('/device_ping', methods=['POST'])
 async def devicePing():
     staff_id = request.args.get('staff_id', type = int)
     location = request.args.get('location', type = str)
@@ -35,7 +35,7 @@ async def devicePing():
         deviceDic[staff_id] = [tmpDic]
         return "Device added."
 
-@app.route('/extractbeacon', methods=['GET'])
+@application.route('/extractbeacon', methods=['GET'])
 async def extractbeacon():
     staff_id = request.args.get('staff_id', type = int)
     start_time = request.args.get('start_time', type = int)
