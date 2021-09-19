@@ -2,6 +2,7 @@ from flask import jsonify, request, render_template, url_for, redirect
 from mainapp import *
 import time
 
+@app.route('/', methods=['GET'])
 @app.route('/home/', methods=['GET'])
 async def home():
     introStr = "This flask server for ICT3102: " + "\n" + "/add device : to add device"
