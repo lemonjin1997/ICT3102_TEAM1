@@ -13,6 +13,12 @@ async def home():
 async def listDevice():
     return jsonify(deviceDic)
 
+@application.route('/temp_route', methods=['POST'])
+def temp_route():
+    staff_id = request.json['staff_id']
+    beacon_mac = request.json['mac']
+    return {'response' : f'Successfully received payload (ID:{staff_id} MAC:{beacon_mac})'}
+
 @application.route('/device_ping', methods=['POST'])
 async def devicePing():
     staff_id = request.args.get('staff_id', type = int)
