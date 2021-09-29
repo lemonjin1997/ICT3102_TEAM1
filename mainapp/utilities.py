@@ -10,3 +10,6 @@ async def insertLocation(con, tmpDic, staff_id):
     con.cursor().execute("INSERT INTO location(level, location, timestamp, staff_id) VALUES (?,?,?,?)", (tmpDic['level'],tmpDic['location'],tmpDic['timestamp'],staff_id, ))
     con.commit()
     print("Insert location for " + staff_id)
+
+def insertUser():
+    pass

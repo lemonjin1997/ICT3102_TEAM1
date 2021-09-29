@@ -13,33 +13,61 @@ async def home():
 async def listDevice():
     return jsonify(deviceDic)
 
+@application.route("/register", methods=['POST'])
+async def post():
+    staff_username = request.json['staff_username']
+    staff_password = request.json['staff_password']
+    con = connectionToDB()
+    cur = con.cursor()
+    cur.execute("SELECT staff_id FROM staff WHERE username=?", (staff_username, ))
+    cur.fetchall()
+    if cur.rowcount > 0:
+        errorStr = "Sorry username taken!"
+        print(errorStr)
+        return errorStr
+    else:
+        cur.execute("INSERT INTO staff(username, password) VALUES (?,?)", (staff_username, staff_password, ))
+        con.commit()
+        message = "Registered " + staff_username
+        return message
+    
+
+@application.route('/login', methods=['POST'])
+async def login():
+    staff_username = request.json['staff_username']
+    staff_password = request.json['staff_password']
+    con = connectionToDB()
+    cur = con.cursor()
+    cur.execute("SELECT staff_id FROM staff WHERE username=? AND password=?", (staff_username, staff_password, ))
+    staff_id = cur.fetchall()
+    if staff_id.count() > 0:
+        message = {"Message": "Login Successfully!", "staff_id": staff_id[0]}
+        print(message)
+        return message
+    else:
+        message = {"Message": "Login Failed!"}
+        print(message)
+        return message
+    
+    
+
 @application.route('/temp_route', methods=['POST'])
 def temp_route():
     staff_id = request.json['staff_id']
     beacon_mac = request.json['mac']
-    return {'response' : f'Successfully received payload (ID:{staff_id} MAC:{beacon_mac})'}
-
-@application.route('/device_ping', methods=['POST'])
-async def devicePing():
-    staff_id = request.args.get('staff_id', type = int)
-    location = request.args.get('location', type = str)
-    level = request.args.get('level', type = int)
+    print('Successfully received payload (ID:{staff_id} MAC:{beacon_mac})')
+    con = connectionToDB()
     cur = con.cursor()
-    cur.execute("SELECT * FROM staff WHERE staff_id=?", (staff_id,))
-    db_staff_id = cur.fetchall()
-    print(db_staff_id)
-    if len(db_staff_id) == 0:
-        cur.execute("INSERT INTO staff(staff_id) VALUES (?)", (staff_id,))
-        con.commit()
-    
-    tmpDic = {"level" : level, "location" : location , "timestamp" : int(time.time())}
-    insertLocation(con, tmpDic, staff_id)
-    if staff_id in deviceDic.keys():
-        deviceDic[staff_id].append(tmpDic)
-        return "Device updated."
+    cur.execute("SELECT staff_id FROM staff WHERE staff_id=?", (staff_id, ))
+    staff_id = cur.fetchall()
+    print(staff_id)
+    if len(staff_id) > 0:
+        cur.execute('INSERT INTO record(staff_id, beacon_mac, timestamp) VALUES (?,?,?)', (int(staff_id[0][0]), beacon_mac, int(time.time()),  ))
+        return {'response' : f'Successfully received payload (ID:{staff_id} MAC:{beacon_mac})'}
     else:
-        deviceDic[staff_id] = [tmpDic]
-        return "Device added."
+        return {'response': 'Staff_id error'}
+    
+
 
 @application.route('/extractbeacon', methods=['GET'])
 async def extractbeacon():
@@ -49,7 +77,8 @@ async def extractbeacon():
     
     con = connectionToDB()
     cur = con.cursor()
-    cur.execute("SELECT * FROM location WHERE staff_id = ? AND timestamp>? AND timestamp < ? ", (staff_id, start_time, end_time, ))
+    cur.execute("SELECT * FROM record WHERE staff_id = ? AND timestamp>? AND timestamp < ? ", (staff_id, start_time, end_time, ))
     location = cur.fetchall()
+    print(location)
     return jsonify(location)
 
