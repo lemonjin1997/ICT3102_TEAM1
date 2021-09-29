@@ -1,6 +1,8 @@
 from flask import Flask
 import sqlite3
 
+
+
 def connectionToDB():
     con = sqlite3.connect('ICT3102.db')
     return con

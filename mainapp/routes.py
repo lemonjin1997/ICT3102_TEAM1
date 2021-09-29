@@ -1,33 +1,29 @@
 from flask import jsonify, request, render_template, url_for, redirect
-from mainapp import *
+from mainapp import application, connectionToDB
 from mainapp.utilities import * 
-import time
+
+
 
 @application.route('/', methods=['GET'])
 @application.route('/home/', methods=['GET'])
-async def home():
-    introStr = "This flask server for ICT3102: " + "\n" + "/add device : to add device"
+def home():
+    introStr = "This flask server for ICT3102: " + "\n" 
     return introStr
 
-@application.route('/list_device', methods=['GET'])
-async def listDevice():
-    return jsonify(deviceDic)
 
 @application.route("/register", methods=['POST'])
 async def post():
     staff_username = request.json['staff_username']
     staff_password = request.json['staff_password']
     con = connectionToDB()
-    cur = con.cursor()
-    cur.execute("SELECT staff_id FROM staff WHERE username=?", (staff_username, ))
-    cur.fetchall()
-    if cur.rowcount > 0:
+    userName = getUsername(con, staff_username)
+
+    if len(userName) > 0:
         errorStr = "Sorry username taken!"
         print(errorStr)
         return errorStr
     else:
-        cur.execute("INSERT INTO staff(username, password) VALUES (?,?)", (staff_username, staff_password, ))
-        con.commit()
+        insertUser(con, staff_username, staff_password)
         message = "Registered " + staff_username
         return message
     
@@ -37,10 +33,8 @@ async def login():
     staff_username = request.json['staff_username']
     staff_password = request.json['staff_password']
     con = connectionToDB()
-    cur = con.cursor()
-    cur.execute("SELECT staff_id FROM staff WHERE username=? AND password=?", (staff_username, staff_password, ))
-    staff_id = cur.fetchall()
-    if staff_id.count() > 0:
+    staff_id = userLogin(con, staff_username, staff_password)
+    if len(staff_id) > 0:
         message = {"Message": "Login Successfully!", "staff_id": staff_id[0]}
         print(message)
         return message
@@ -57,12 +51,8 @@ def temp_route():
     beacon_mac = request.json['mac']
     print('Successfully received payload (ID:{staff_id} MAC:{beacon_mac})')
     con = connectionToDB()
-    cur = con.cursor()
-    cur.execute("SELECT staff_id FROM staff WHERE staff_id=?", (staff_id, ))
-    staff_id = cur.fetchall()
-    print(staff_id)
-    if len(staff_id) > 0:
-        cur.execute('INSERT INTO record(staff_id, beacon_mac, timestamp) VALUES (?,?,?)', (int(staff_id[0][0]), beacon_mac, int(time.time()),  ))
+    if staffIdCheck(con, staff_id):
+        insertPing(con, staff_id, beacon_mac)
         return {'response' : f'Successfully received payload (ID:{staff_id} MAC:{beacon_mac})'}
     else:
         return {'response': 'Staff_id error'}
@@ -76,9 +66,10 @@ async def extractbeacon():
     end_time = request.args.get('end_time', type = int)
     
     con = connectionToDB()
-    cur = con.cursor()
-    cur.execute("SELECT * FROM record WHERE staff_id = ? AND timestamp>? AND timestamp < ? ", (staff_id, start_time, end_time, ))
-    location = cur.fetchall()
-    print(location)
-    return jsonify(location)
+    data = extractBeaconData(con, staff_id, start_time, end_time)
+    data = {"locations" : data}
+    print(data)
+
+    return data
+
 
