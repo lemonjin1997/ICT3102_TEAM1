@@ -1,4 +1,6 @@
 from timeit import timeit
+
+from werkzeug.wrappers import response
 from mainapp.routes import * 
 import requests
 
@@ -16,17 +18,28 @@ def LoginTest():
 
 def TempRouteTest():
     responseTempRoute = requests.post(url + "temp_route", json={"staff_id" : "1", "mac" : "mac_address"})
-    if responseTempRoute.status_code == 200:
-        print("temproute success")
+    #if responseTempRoute.status_code == 200:
+        #print("temproute success")
 
 def ExtractBeaconTest():
     responseExtractBeacon = requests.get(url + "extractbeacon"+ "?staff_id=1&start_time=1630559263&end_time=1630559273")
-    if responseExtractBeacon.status_code == 200:
-        print("extractbeacon succcess")
+    #if responseExtractBeacon.status_code == 200:
+        #print("extractbeacon succcess")
 
 print(timeit("RegisterTest()", 'from __main__ import RegisterTest', number=1))
 print(timeit("LoginTest()", 'from __main__ import LoginTest', number=1))
 print(timeit("TempRouteTest()", 'from __main__ import TempRouteTest', number=1))
-print(timeit("ExtractBeaconTest()", 'from __main__ import ExtractBeaconTest', number=1))
 
-print(timeit("insertPing(con, staff_id, beacon_mac)", 'from mainapp.utilities import insertPing; from mainapp.__init__ import connectionToDB; staff_id = "1"; beacon_mac = "beaonc1"; con = connectionToDB();', number=1))
+
+databaseTime = []
+for i in range(1000):
+    databaseTime.append(timeit("insertPing(con, staff_id, beacon_mac)", 'from mainapp.utilities import insertPing; from mainapp.__init__ import connectionToDB; staff_id = "1"; beacon_mac = "beaonc1"; con = connectionToDB();', number=1))
+print(max(databaseTime)*1000)
+print(min(databaseTime)*1000)
+print(sum(databaseTime) / len(databaseTime)* 1000)
+responseTime = []
+for i in range(1000):
+    responseTime.append(timeit("ExtractBeaconTest()", 'from __main__ import ExtractBeaconTest', number=1))
+print(max(responseTime)*1000)
+print(min(responseTime)*1000)
+print(sum(responseTime) / len(responseTime)* 1000)
