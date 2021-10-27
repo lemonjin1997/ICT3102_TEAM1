@@ -21,11 +21,11 @@ async def post():
     if len(userName) > 0:
         errorStr = "Sorry username taken!"
         print(errorStr)
-        return errorStr
+        return {"Message" : errorStr}
     else:
         insertUser(con, staff_username, staff_password)
         message = "Registered " + staff_username
-        return message
+        return {"Message" : message}
     
 
 @application.route('/login', methods=['POST'])
