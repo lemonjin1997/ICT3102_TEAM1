@@ -1,0 +1,33 @@
+version: "3.8"
+
+services:
+  mysql-db:
+    image: "mysql/mysql-server"
+    ports: 
+      - "3305:3306"
+    restart: always
+    networks: 
+      - jenkins
+
+  flask-app:
+    env_file:
+      - .env
+    image: ${DOCKER_REGISTRY-}flask-app
+    build:
+      context: SecureGenericForum/
+      dockerfile: Dockerfile
+    environment:
+      - FLASK_DEBUG=1
+      - FLASK_APP=/web/main_api.py
+    ports:
+      - "5000:5000"
+    expose:
+      - "5000"
+    volumes:
+      - "./web:/web"
+    ports:
+      - "5000:5000"
+      - jenkins
+
+  flask-server:
+    
