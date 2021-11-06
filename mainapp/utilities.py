@@ -34,15 +34,8 @@ def extractBeaconData(con, staff_id, start_time, end_time):
     con.row_factory = dict_factory
     cur = con.cursor()
     cur.execute("SELECT * FROM record")# WHERE staff_id = ? AND timestamp>? AND timestamp < ? ", (staff_id, start_time, end_time, ))
-    locations = cur.fetchall()
-    print(locationDic)
-    for location in locations:
-        del location["staff_id"]
-        del location["record"]
-        location['level'] = locationDic[location['beacon_mac']]['level']
-        location['location'] = locationDic[location['beacon_mac']]['location']
-        del location["beacon_mac"]
-    return locations
+    location = cur.fetchall()
+    return location
 
 def insertPing(con, staff_id, beacon_mac):
     cur = con.cursor()
