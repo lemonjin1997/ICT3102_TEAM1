@@ -1,0 +1,96 @@
+"DE69F34B12FB": "Lvl 1 Fire Fighting Lobby" : 1
+"D7EBDC5A92B9": "Lvl 1 Fire Fighting Lobby" : 1
+"C43298D4E8B2": "Lvl 1 Fire Fighting Lobby" : 1
+"F3B1B290486D": "Student Club" : 1
+"D975F28047B3": "Foyer" : 1
+"DB45ECD1DF33": "Foyer" : 1
+"ECAC7EDCDF93": "LT2A Lobby" : 2
+"D7BFA52AA899": "LT2A Lobby" : 2
+"D249FA5CECA0": "LT2B Lobby" : 2
+"FDC14F4F7ED4": "LT2B Lobby" : 2
+"CC1DC599C10B": "LT2B Lobby" : 2
+"D4A58BB6DCAD": "SR2A Lobby" : 2
+"E0A4F1CBF31C": "SR2A Lobby" : 2
+"CC2F5B7F9677": "SR2A Lobby" : 2
+"DFBC60C04884": "SR2A Lobby" : 2
+"E180324B7C78": "SR2A Lobby" : 2
+"F5C3E08B32D5": "SR2A Lobby" : 2
+"D48A42D20BE1": "Lvl 2 Lift Lobby" : 2
+"C343BC7CCF92": "Lvl 2 Lift Lobby" : 2
+"D1B4D89B73A7": "Lvl 4 Fire fighting Lobby" : 4
+"EC4FB474B11C": "Lvl 4 Fire fighting Lobby" : 4 
+"F3514C561E0B": "SR4G Lobby" : 4 
+"D2622D4F854E": "SR4G Lobby" : 4 
+"CF1EBCE74C9C": "SR4G Lobby" : 4 
+"CCE3EFDACB52": "SR4A Lobby" : 4 
+"DA2D5CCB9488": "SR4G Lobby" : 4 
+"D470075FDA87": "SR4G Lobby" : 4 
+"DF037DD86E53": "SR4H Lobby" : 4 
+"CCF3E1C929FD": "SR4G Lobby" : 4 
+"E1EB15371D96": "SR4E Lobby" : 4 
+"F112F03A720D": "SR4G Lobby" : 4 
+"ED23CBDF8B80": "SR4G Lobby" : 4 
+"FA55EB6C23B4": "SR4A Lobby" : 4 
+"D20FB4E0B1D5": "SR4A Lobby" : 4 
+"C6D01D6A3FF4": "Lvl 4 Lift Lobby" : 4 
+"F4D13305DE3A": "Lvl 4 Lift Lobby" : 4 
+"D92C9A57F7CB": "SR5D Lobby" : 5
+"FDF4813F84DB": "Lvl 5 Fire fighting Lobby" : 5
+"EB3E5754BFBB": "SR5F Lobby" : 5
+"DEE4570CB343": "SR5H Lobby" : 5
+"F744E95AFEB4": "SR5D Lobby" : 5
+"EED4DE089809": "SR5C Lobby" : 5
+"F1E0D560AEFA": "Lvl 5 Lift Lobby" : 5
+"E4AEB8791C91": "Lvl 5 Lift Lobby" : 5
+"C53B43C6340A": "Lvl 5 Lift Lobby" : 5
+"C153830706A5": "Lvl 5 Lift Lobby" : 5
+"EF708283108E": "Lvl 5 Fire fighting Lobby" : 5
+"FED95EF5D4C7": "Lvl 5 Fire fighting Lobby" : 5
+"F1D6EC1553CD": "SR5F Lobby" : 5
+"E7F82CE7B318": "SR5C Lobby" : 5
+"DF69B5035B33": "Lvl 6 Fire fighting Lobby" : 6
+"F3FBA538EC62": "Lvl 6 Fire fighting Lobby" : 6
+"DA17557BCB38": "SR6A Lobby" : 6
+"F85E688B4B72": "SR6B Lobby" : 6
+"F28C771A175B": "SR6H Lobby" : 6
+"E1A0FBAEA144": "Lvl 6 Fire fighting Lobby" : 6
+"ECE7966F39E9": "SR6E Lobby" : 6
+"C22D0D9E578C": "SR6H Lobby" : 6
+"DF1D0A9FE1E0": "SR6G Lobby" : 6
+"F40C85E05D70": "SR6H Lobby" : 6
+"EEF85E5BDCED": "SR6A Lobby" : 6
+"F68644A3A846": "SR6A Lobby" : 6
+"C48190F6DE4A": "SR6H Lobby" : 6
+"D17221428784": "SR6H Lobby" : 6
+"DDA334403026": "SR6H Lobby" : 6
+"C00123E26D45": "Lvl 6 Lift Lobby" : 6
+"ECA9A0061008": "Lvl 6 Lift Lobby" : 6
+"F798B9A7AC28": "ROOM 1" : 6
+"EB89094E2F11": "ROOM 2" : 6
+"DB6073C9C0A4": "ROOM 3" : 6
+"F32ED305DB62": "ROOM 4" : 6
+"C88FA9B10AE8": "ROOM 5" : 6
+"EAC3938DDA2": "Level 7 Fire fighting Lobby" : 7
+"D59761B61C6C": "Level 7 Fire fighting Lobby" : 7
+"DB7ADA9F387B": "Level 7 Fire fighting Lobby" : 7
+"CF8061AE8B38": "SR7B Lobby" : 7
+"EF20D5A8BD8": "SR7B" : 7
+"EB5F5BDD1443": "SR7C Lobby" : 7
+"CA4C2D0DA8BD": "SR7C Lobby" : 7
+"CBCE44CC874E": "SR7C" : 7
+"E268B2A4AE9A": "SR7C Lobby" : 7
+"CD5116F790EE": "SR7D Lobby" : 7
+"EC5D57A6C8F3": "SR7D Lobby" : 7
+"D6C01807A019": "SR7D" : 7
+"F511F9E15121": "SR7D" : 7
+"C4C4C1329EA2": "SR7D Lobby" : 7
+"E466B99CB95F": "SR7D Lobby" : 7
+"FB1868AB3E1B": "SR7E" : 7
+"F2BA496C4BD1": "SR7E Lobby" : 7
+"D319E655E91C": "SR7E Lobby" : 7
+"EBFA572D1DC2": "MR 7A" : 7
+"FDF33DAEE5A4": "MR 7A" : 7
+'D11DC16A4F98': "MR 7A" : 7   
+"C2BF4E1F0E2A": "Level 7 Lift Lobby" : 7
+"C639BBBE3557": "Level 7 Lift Lobby" : 7
+"DB0896A9CC33": "Level 7 Lift Lobby" : 7
