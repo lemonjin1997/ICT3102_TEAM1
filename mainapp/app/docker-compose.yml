@@ -1,19 +1,18 @@
 version: "3.8"
 services:
   team:
-    restart: always
+    #restart: always
     build: ./src
-    command: uvicorn src.main:app --reload --host 0.0.0.0 --port 8000
+    command: python src/app.py
     volumes:
       - "./:/src"
     ports:
-      - "8000:8000"
+      - "5000:5000"
     expose:
-      - "8000"
+      - "5000"
     depends_on: 
       - "database"
   
-# mongodb or radis
   database:
     image: mongo
     environment:

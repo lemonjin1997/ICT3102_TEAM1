@@ -1,11 +1,7 @@
 from fastapi import APIRouter
 
-from src.models.user import User, Beacon, Ping
-from src.config.db import collectionBeacon, collectionUser, collectionPing ,db
-from src.schemas.user import *
 import datetime
 
-user = APIRouter()
 
 # todo for cache find the timeout dic
 cache = dict() 

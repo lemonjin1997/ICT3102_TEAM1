@@ -1,18 +1,25 @@
 from pymongo import MongoClient
-conn = MongoClient("mongodb://lemonjin:pangjinxiang@database:27017")
 
-async def get_db():
+
+conn = MongoClient("mongodb://lemonjin:pangjinxiang@database:27017")
+def get_db():
     db = conn["mydatabase"]
+    if db.get_collection("Beacon") is None: 
+        db.create_collection('Beacon')
+    if db.get_collection("User") is None: 
+        db.create_collection('User')
+    if db.get_collection("Ping") is None: 
+        db.create_collection('Ping')
     return db
 
-async def get_col_beacon(db):
-    collectionBeacon = db["Beacon"]
+def get_col_beacon(db):
+    collectionBeacon = db.get_collection("Beacon")
     return collectionBeacon
-async def get_col_user(db):
-    collectionUser = db["User"]
+def get_col_user(db):
+    collectionUser = db.get_collection("User")
     return collectionUser
-async def get_col_ping(db):
-    collectionPing = db["Ping"]
+def get_col_ping(db):
+    collectionPing = db.get_collection("Ping")
     return collectionPing
 
 

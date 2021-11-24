@@ -136,3 +136,5 @@ venv/*
 *.iml
 *.pyc
 .vscode
+*init-mongo.js
+*mongo-volume
