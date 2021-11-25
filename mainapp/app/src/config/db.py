@@ -1,7 +1,7 @@
 from pymongo import MongoClient
 
 
-conn = MongoClient("mongodb://lemonjin:pangjinxiang@database:27017")
+conn = MongoClient("mongodb://database:27017")
 def get_db():
     db = conn["mydatabase"]
     if db.get_collection("Beacon") is None: 

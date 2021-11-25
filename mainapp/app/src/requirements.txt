@@ -3,3 +3,4 @@ motor==2.2.0
 pymongo==3.12.1
 asyncio==3.4.3
 pydantic==1.8.2
+expiringdict==1.2.1

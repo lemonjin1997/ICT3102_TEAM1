@@ -1,0 +1,41 @@
+<!doctype html>
+<title>ICT3102 - Team 1 Dashboard</title>
+{{timeout_dic}}
+
+<body>
+    <table>
+        <tr>
+          <th>Beacon MAC</th>
+          <th style="text-align: center;">Room Name</th>
+          <th>Location</th>
+          <th>Level</th>
+          <th>Number Of User in Range for last hour</th>
+        </tr>
+        {% for beacon in beacons.keys() %}
+        <tr>
+            <td>{{beacon}}</td>
+            <td>{{beacons[beacon]['location']}} </td>
+            <td>{{beacons[beacon]['level']}}</td>
+            <td>{{beacons[beacon]['count']}}</td>
+        </tr>
+        {%endfor%}
+    </table>
+    <table>
+        <tr>
+          <th>Beacon MAC</th>
+          <th style="text-align: center;">Room Name</th>
+          <th>TimeStamp</th>
+          <th>Staff_ID</th>
+        </tr>
+        {% for time_out_beacon in timeout_list %}
+        <tr>
+            
+                <td>{{time_out_beacon['beacon_mac']}}</td>
+                <td>{{beacons[time_out_beacon['beacon_mac']]['location']}}</td>
+                <td>{{time_out_beacon['time_stamp']}}</td>
+                <td>{{time_out_beacon['name']}}</td>
+            
+        </tr>
+        {%endfor%}
+    </table>
+</body>
