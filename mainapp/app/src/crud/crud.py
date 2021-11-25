@@ -34,10 +34,10 @@ def extract_beacon(collectionPing, start_time, end_time, staff_id, tmp_dic):
     ping_dic['location'] = tmp_list
     return ping_dic
 
-def insert_ping(name, beacon_mac):
+def insert_ping(name, beacon_mac, RSSI):
     db = get_db()
     time_stamp = int(time.time())
-    ping = Ping(name=name, beacon_mac=beacon_mac, time_stamp=time_stamp)
+    ping = Ping(name=name, beacon_mac=beacon_mac, time_stamp=time_stamp, RSSI=RSSI)
     
     # check beacon exist
     collectionBeacon = get_col_beacon(db)

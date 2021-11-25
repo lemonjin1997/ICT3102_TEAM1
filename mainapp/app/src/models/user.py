@@ -12,4 +12,4 @@ class Ping(BaseModel):
     time_stamp: str
     beacon_mac: str
     name: str
-    
+    RSSI:str

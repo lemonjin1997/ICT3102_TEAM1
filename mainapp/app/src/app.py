@@ -31,16 +31,15 @@ def readBeacons():
 @app.route('/', methods = ['GET'])
 def dashboard():
     dashboard_dic = tmp_dic
-    for x in dashboard_dic.keys():
-        if dict(timeout_dic).get(x) is not None:
-            dashboard_dic[x]['count'] = len(dict(timeout_dic).get(x))
-        else:
-            dashboard_dic[x]['count'] = 0
-    tmp_list = []
-    for x in dict(timeout_dic).keys():
-        tmp_list.extend(dict(timeout_dic)[x])
+    # for x in dashboard_dic.keys():
+    #     if dict(timeout_dic).get(x) is not None:
+    #         dashboard_dic[x]['count'] = len(dict(timeout_dic).get(x))
+    #     else:
+    #         dashboard_dic[x]['count'] = 0
+    # for x in dict(timeout_dic).keys():
+    #     tmp_list.extend(dict(timeout_dic)[x])
 
-    return render_template('dashboard.html', beacons=dashboard_dic, timeout_list=tmp_list)
+    return render_template('dashboard.html', beacons=dashboard_dic, timeout_dic=dict(timeout_dic))
 
 
 @app.route('/ping_server', methods = ['GET'])
@@ -48,15 +47,15 @@ def ping_server():
     # Populate data
     name = request.args.get('name')
     beacon_mac = request.args.get('beacon_mac')
-    ping = insert_ping(name, beacon_mac)
+    RSSI = request.args.get('RSSI')
+    ping = insert_ping(name, beacon_mac, RSSI)
     
-    if timeout_dic.get(beacon_mac) is None:
-        timeout_dic[beacon_mac] = [ping]
-    else:
-        timeout_dic[beacon_mac].append(ping)
+    if timeout_dic.get(ping['time_stamp']) is None:
+        timeout_dic[ping['time_stamp']] = ping
+        
     return beacon_mac+name
 
-@app.route('/ping_HACWS', methods = ['GET'])
+@app.route('/extractbeacon', methods = ['GET'])
 def ping_HACWS():
     db = get_db()
     start_time = request.args.get('start_time')
@@ -72,6 +71,9 @@ def ping_HACWS():
     return input + str(ping_dic)
 
 if __name__== "__main__":
+    if get_col_beacon(get_db()).count() <= 0:
+        print(get_col_beacon(get_db()).count() )
+        pass
     readBeacons()
     print(tmp_dic)
     app.run(debug=True, host='0.0.0.0', port=5000)
