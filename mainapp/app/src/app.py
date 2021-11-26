@@ -54,9 +54,7 @@ def ping_server():
     if timeout_dic.get(ping['time_stamp']) is None:
         timeout_dic[ping['time_stamp']] = ping
 
-    print(beacon_mac+staff_id+rssi)
-        
-    return beacon_mac+staff_id+rssi
+    return {'response' : f'Successfully received payload (ID:{staff_id} MAC:{beacon_mac} RSSI:{rssi})'}
 
 @app.route('/extractbeacon', methods = ['GET'])
 def ping_HACWS():
