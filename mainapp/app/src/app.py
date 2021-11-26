@@ -6,6 +6,7 @@ from models.user import *
 from crud.crud import *
 import time
 from expiringdict import ExpiringDict
+import datetime
 
 
 app = Flask(__name__, template_folder='template')
@@ -31,14 +32,10 @@ def readBeacons():
 @app.route('/', methods = ['GET'])
 def dashboard():
     dashboard_dic = beacon_dic
-    # for x in dashboard_dic.keys():
-    #     if dict(timeout_dic).get(x) is not None:
-    #         dashboard_dic[x]['count'] = len(dict(timeout_dic).get(x))
-    #     else:
-    #         dashboard_dic[x]['count'] = 0
-    # for x in dict(timeout_dic).keys():
-    #     tmp_list.extend(dict(timeout_dic)[x])
-    return render_template('dashboard.html', beacons=dashboard_dic, timeout_dic=dict(timeout_dic))
+    devices_dic = dict(timeout_dic)
+    for key in dict(timeout_dic).keys():
+        devices_dic[datetime.datetime.fromtimestamp(int(key)).strftime('%c')] = devices_dic.pop(key)
+    return render_template('dashboard.html', beacons=dashboard_dic, timeout_dic=devices_dic)
 
 
 @app.route('/ping_server', methods = ['POST'])
