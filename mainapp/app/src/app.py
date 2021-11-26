@@ -72,8 +72,6 @@ def ping_HACWS():
 
 if __name__== "__main__":
     if get_col_beacon(get_db()).count() <= 0:
-        print(get_col_beacon(get_db()).count() )
-        pass
-    readBeacons()
+        readBeacons()
     print(tmp_dic)
     app.run(debug=True, host='0.0.0.0', port=5000)
