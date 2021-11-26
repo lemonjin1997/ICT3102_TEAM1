@@ -38,22 +38,23 @@ def dashboard():
     #         dashboard_dic[x]['count'] = 0
     # for x in dict(timeout_dic).keys():
     #     tmp_list.extend(dict(timeout_dic)[x])
-
     return render_template('dashboard.html', beacons=dashboard_dic, timeout_dic=dict(timeout_dic))
 
 
-@app.route('/ping_server', methods = ['GET'])
+@app.route('/ping_server', methods = ['POST'])
 def ping_server():
     # Populate data
-    name = request.args.get('name')
-    beacon_mac = request.args.get('beacon_mac')
-    RSSI = request.args.get('RSSI')
-    ping = insert_ping(name, beacon_mac, RSSI)
+    staff_id = request.json['staff_id']
+    beacon_mac = request.json['mac']
+    rssi = request.json['rssi']
+    ping = insert_ping(staff_id, beacon_mac, rssi)
     
     if timeout_dic.get(ping['time_stamp']) is None:
         timeout_dic[ping['time_stamp']] = ping
+
+    print(beacon_mac+staff_id+rssi)
         
-    return beacon_mac+name
+    return beacon_mac+staff_id+rssi
 
 @app.route('/extractbeacon', methods = ['GET'])
 def ping_HACWS():
@@ -61,9 +62,6 @@ def ping_HACWS():
     start_time = request.args.get('start_time')
     end_time = request.args.get('end_time')
     staff_id = request.args.get('staff_id')
-    staff_id = "lemonjin"
-    start_time = int(time.time() - 3600)
-    end_time = int(time.time())
     input = str(start_time) + str(end_time) + staff_id
     collectionPing = get_col_ping(db)
     ping_dic = extract_beacon(collectionPing, start_time, end_time, staff_id, tmp_dic)
