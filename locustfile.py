@@ -10,5 +10,9 @@ class MyLocustTesting(HttpUser):
     @task(1)
     def hello_world(self):
         url = "http://localhost:5000/"
-        self.client.get(url + "extractbeacon"+ "?staff_id=1&start_time=1630559263&end_time=1630559273")
+        self.client.get(url + "extractbeacon"+ "?staff_id=1&start_time=0&end_time=999999999")
+    @task(1)
+    def hello_world2(self):
+        url = "http://localhost:5000/"
+        self.client.get(url)
         
