@@ -12,10 +12,11 @@ app = Flask(__name__, template_folder='template')
 
 db = get_db()
 # cache  = {}
-tmp_dic = {}
+beacon_dic = {}
 timeout_dic = ExpiringDict(max_age_seconds=3600, max_len=1000)
 
 def readBeacons():
+    tmp_dic = {}
     file = open('src/BeaconLocation.txt')
     #print(list(file))
     insert_list = []
@@ -27,10 +28,11 @@ def readBeacons():
         insert_list.append({"beacon_mac": tmp_detail[0] , "location" : tmp_detail[1] , "level" :  tmp_detail[2]})
     
     get_col_beacon(db).insert_many(insert_list)
+    return tmp_dic
 
 @app.route('/', methods = ['GET'])
 def dashboard():
-    dashboard_dic = tmp_dic
+    dashboard_dic = beacon_dic
     # for x in dashboard_dic.keys():
     #     if dict(timeout_dic).get(x) is not None:
     #         dashboard_dic[x]['count'] = len(dict(timeout_dic).get(x))
@@ -64,12 +66,12 @@ def ping_HACWS():
     staff_id = request.args.get('staff_id')
     input = str(start_time) + str(end_time) + staff_id
     collectionPing = get_col_ping(db)
-    ping_dic = extract_beacon(collectionPing, start_time, end_time, staff_id, tmp_dic)
+    ping_dic = extract_beacon(collectionPing, start_time, end_time, staff_id, beacon_dic)
     
     return input + str(ping_dic)
 
 if __name__== "__main__":
     if get_col_beacon(get_db()).count() <= 0:
-        readBeacons()
-    print(tmp_dic)
+        beacon_dic = readBeacons()
+    print(beacon_dic)
     app.run(debug=True, host='0.0.0.0', port=5000)
