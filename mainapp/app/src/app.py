@@ -26,9 +26,7 @@ def readBeacons():
         print(tmp_detail)
         tmp_dic[tmp_detail[0]] = {"location" : tmp_detail[1] , "level" :  tmp_detail[2]}
         insert_list.append({"beacon_mac": tmp_detail[0] , "location" : tmp_detail[1] , "level" :  tmp_detail[2]})
-    
-    get_col_beacon(db).insert_many(insert_list)
-    return tmp_dic
+    return tmp_dic, insert_list
 
 @app.route('/', methods = ['GET'])
 def dashboard():
@@ -46,9 +44,11 @@ def dashboard():
 @app.route('/ping_server', methods = ['POST'])
 def ping_server():
     # Populate data
+    print(request.json)
     staff_id = request.json['staff_id']
     beacon_mac = request.json['mac']
     rssi = request.json['rssi']
+    beacon_mac = beacon_mac.replace(":", "")
     ping = insert_ping(staff_id, beacon_mac, rssi)
     
     if timeout_dic.get(ping['time_stamp']) is None:
@@ -69,7 +69,7 @@ def ping_HACWS():
     return input + str(ping_dic)
 
 if __name__== "__main__":
+    beacon_dic, insert_list = readBeacons()
     if get_col_beacon(get_db()).count() <= 0:
-        beacon_dic = readBeacons()
-    print(beacon_dic)
-    app.run(debug=True, host='0.0.0.0', port=5000)
+        get_col_beacon(db).insert_many(insert_list)        
+    app.run(debug=True, host='0.0.0.0', port=5000, threaded=True)
